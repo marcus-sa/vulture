@@ -15,9 +15,9 @@ interface Options {
 }
 
 const prompt = inquirer.createPromptModule();
-const validateInteger = (input, name: string) => Number.isInteger(input) || name + ' must be an integer!';
-const validateString = (input, name: string) => typeof input === 'string' || name + ' must be a string!';
-const validateMinLength = (input, minLength: number, name: string) => input.length >= minLength || `${name} must be at least ${minLength} characters`;
+const validateInteger = (name: string) => (input) => Number.isInteger(input) || `${name} must be an integer!`;
+const validateString = (name: string) => (input) => typeof input === 'string' || `${name} must be a string!`;
+const validateMinLength = (minLength: number, name: string) => (input = '') => input.length >= minLength || `${name} must be at least ${minLength} characters`;
 
 const questions: inquirer.Question[] = [
   {
@@ -30,42 +30,42 @@ const questions: inquirer.Question[] = [
     name: 'apiPort',
     message: 'Port for the API',
     default: 3000,
-    validate: (input) => validateInteger(input, 'API port'),
+    validate: validateInteger('API port'),
   },
   {
     type: 'input',
     name: 'dbName',
     message: 'MySQL database name',
     default: 'vulture',
-    validate: (input) => validateString(input, 'Database name'),
+    validate: validateString('Database name'),
   },
   {
     type: 'input',
     name: 'dbUser',
     message: 'MySQL username',
     default: 'root',
-    validate: (input) => validateString(input, 'Username'),
+    validate: validateString('Username'),
   },
   {
     type: 'input',
     name: 'dbPort',
     message: 'MySQL port',
     default: 3306,
-    validate: (input) => validateInteger(input, 'MySQL port'),
+    validate: validateInteger('MySQL port'),
   },
   {
     type: 'password',
     name: 'dbPass',
     message: 'MySQL user password',
     default: generatePassword(12, false),
-    validate: (input) => validateMinLength(input, 6, 'User password'),
+    validate: validateMinLength(6, 'User password'),
   },
   {
     type: 'password',
     name: 'dbRootPass',
     message: 'MySQL root password',
     default: generatePassword(16, false),
-    validate: (input) => validateMinLength(input, 12, 'Root password'),
+    validate: validateMinLength(12, 'Root password'),
   },
   {
     type: 'list',
