@@ -1,6 +1,7 @@
 import * as generatePassword from 'password-generator';
 import * as inquirer from 'inquirer';
 import * as fse from 'fs-extra';
+import * as path from 'path';
 import YAML from 'yaml';
 
 interface Options {
@@ -11,13 +12,17 @@ interface Options {
   dbPass: string;
   dbUser: string;
   dbRootPass: string;
-  emulator: 'plus' | 'comet' | 'arcturus'
+  emulator: 'plus' | 'comet' | 'arcturus';
 }
 
 const prompt = inquirer.createPromptModule();
-const validateInteger = (name: string) => (input) => Number.isInteger(input) || `${name} must be an integer!`;
-const validateString = (name: string) => (input) => typeof input === 'string' || `${name} must be a string!`;
-const validateMinLength = (minLength: number, name: string) => (input = '') => input.length >= minLength || `${name} must be at least ${minLength} characters`;
+const validateInteger = (name: string) => input =>
+  Number.isInteger(input) || `${name} must be an integer!`;
+const validateString = (name: string) => input =>
+  typeof input === 'string' || `${name} must be a string!`;
+const validateMinLength = (minLength: number, name: string) => (input = '') =>
+  input.length >= minLength ||
+  `${name} must be at least ${minLength} characters`;
 
 const questions: inquirer.Question[] = [
   {
@@ -71,11 +76,7 @@ const questions: inquirer.Question[] = [
     type: 'list',
     name: 'emulator',
     message: 'Choose emulator',
-    choices: [
-      'plus',
-      'comet',
-      'arcturus',
-    ],
+    choices: ['plus', 'comet', 'arcturus'],
   },
 ];
 
@@ -86,21 +87,17 @@ const dockerComposeTemplate = {
       image: 'mariadb:latest',
       restart: 'always',
       environment: {},
-      volumes: [
-        'db_data:/var/lib/mysql/data',
-      ]
+      volumes: ['db_data:/var/lib/mysql/data'],
     },
     app: {
-      depends_on: [
-        'db',
-      ],
+      depends_on: ['db'],
       build: '.',
       ports: [],
       restart: 'always',
       environment: {},
-    }
+    },
   },
-  volumes: 'db_data:'
+  volumes: 'db_data:',
 } as any;
 
 (async () => {
@@ -123,5 +120,6 @@ const dockerComposeTemplate = {
   };
 
   const dockerCompose = YAML.stringify(dockerComposeTemplate);
-  await fse.writeFile('./docker-compose.yml', dockerCompose, 'utf8');
+  const dockerComposeFile = path.join(process.cwd(), 'docker-compose.yml');
+  await fse.writeFile(dockerComposeFile, dockerCompose, 'utf8');
 })();
