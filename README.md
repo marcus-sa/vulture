@@ -1,38 +1,47 @@
-# habbo-api
+# Vulture
 
 ## Description
 
-Habbo API supporting all emulator databases
+Headless Habbo CMS supporting all major emulators
 
 ## Installation
 
+Ensure you have `yarn` installed, otherwise install it `npm install -g yarn`
+<br />
+This API uses `docker`, so you must [`docker-compose`](https://docs.docker.com/compose/install/) installed
+
+Next step is to install all the required dependencies so that you can setup the API
 ```bash
-$ npm install
+$ yarn
+```
+
+## Setup
+
+Simply run the following command and answer the prompts to setup everything needed
+```bash
+$ yarn setup
 ```
 
 ## Running the app
 
 ```bash
-# development
-$ npm run start
+# docker
+$ docker-compose up
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-npm run start:prod
+# local development
+$ yarn start
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+$ yarn test
 
 # e2e tests
-$ npm run test:e2e
+$ yarn test:e2e
 
 # test coverage
-$ npm run test:cov
+$ yarn test:cov
 ```
 

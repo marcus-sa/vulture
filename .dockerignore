@@ -1,3 +1,10 @@
 node_modules
 npm-debug.log
 yarn-error.log
+setup.ts
+test
+LICENSE
+README.md
+.prettierrc
+nodemon.json
+docker-compose.template.yml
