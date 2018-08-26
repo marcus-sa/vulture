@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "setup": "ts-node setup.ts",
-    "precommit": "yarn run format",
+    "precommit": "lint-staged",
     "format": "prettier **/**/*.{js,ts} --write && git status",
     "start": "nodemon",
     "build": "rm -rf dist && tsc",
