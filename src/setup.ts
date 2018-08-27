@@ -4,15 +4,20 @@ import * as fse from 'fs-extra';
 import * as path from 'path';
 import YAML from 'yaml';
 
+enum Emulators {
+  Plus = 'plus',
+  Comet = 'comet',
+  Arcturus = 'arcturus',
+}
+
 interface Options {
-  docker: boolean;
   apiPort: number;
   dbName: string;
   dbPort: number;
   dbPass: string;
   dbUser: string;
   dbRootPass: string;
-  emulator: 'plus' | 'comet' | 'arcturus';
+  emulator: Emulators;
 }
 
 const prompt = inquirer.createPromptModule();
@@ -24,12 +29,50 @@ const validateMinLength = (minLength: number, name: string) => (input = '') =>
   input.length >= minLength ||
   `${name} must be at least ${minLength} characters`;
 
+function createDockerCompose(options: Options) {
+  const dockerComposeTemplate = {
+    version: '3',
+    services: {
+      db: {
+        image: 'mariadb:latest',
+        restart: 'always',
+        environment: {},
+        volumes: ['db_data:/var/lib/mysql/data'],
+      },
+      app: {
+        depends_on: ['db'],
+        build: '.',
+        volumes: ['.:/usr/app'],
+        ports: [],
+        restart: 'always',
+        environment: {},
+      },
+    },
+    volumes: { db_data: {} },
+  } as any;
+
+  dockerComposeTemplate.services.db.environment = {
+    MYSQL_ROOT_PASSWORD: options.dbRootPass,
+    MYSQL_DATABASE: options.dbName,
+    MYSQL_USER: options.dbUser,
+    MYSQL_PASSWORD: options.dbPass,
+  };
+  dockerComposeTemplate.services.app.ports.push(
+    `${options.apiPort}:${options.apiPort}`,
+  );
+  dockerComposeTemplate.services.app.environment = {
+    PORT: options.apiPort,
+    DB_HOST: 'db',
+    DB_NAME: options.dbName,
+    DB_PORT: options.dbPort,
+    DB_USER: options.dbUser,
+    DB_PASS: options.dbRootPass,
+  };
+
+  return dockerComposeTemplate;
+}
+
 const questions: inquirer.Question[] = [
-  {
-    type: 'confirm',
-    name: 'docker',
-    message: 'Should use Docker',
-  },
   {
     type: 'input',
     name: 'apiPort',
@@ -76,49 +119,13 @@ const questions: inquirer.Question[] = [
     type: 'list',
     name: 'emulator',
     message: 'Choose emulator',
-    choices: ['plus', 'comet', 'arcturus'],
+    choices: Object.keys(Emulators),
   },
 ];
 
-const dockerComposeTemplate = {
-  version: '3',
-  services: {
-    db: {
-      image: 'mariadb:latest',
-      restart: 'always',
-      environment: {},
-      volumes: ['db_data:/var/lib/mysql/data'],
-    },
-    app: {
-      depends_on: ['db'],
-      build: '.',
-      ports: [],
-      restart: 'always',
-      environment: {},
-    },
-  },
-  volumes: 'db_data:',
-} as any;
-
 (async () => {
   const options = await prompt<Options>(questions);
-
-  dockerComposeTemplate.services.db.environment = {
-    MYSQL_ROOT_PASSWORD: options.dbRootPass,
-    MYSQL_DATABASE: options.dbName,
-    MYSQL_USER: options.dbUser,
-    MYSQL_PASSWORD: options.dbPass,
-  };
-  dockerComposeTemplate.services.app.ports.push(options.apiPort);
-  dockerComposeTemplate.services.app.environment = {
-    PORT: options.apiPort,
-    DB_HOST: 'db',
-    DB_NAME: options.dbName,
-    DB_PORT: options.dbPort,
-    DB_USER: options.dbUser,
-    DB_PASS: options.dbPass,
-  };
-
+  const dockerComposeTemplate = createDockerCompose(options);
   const dockerCompose = YAML.stringify(dockerComposeTemplate);
   const dockerComposeFile = path.join(process.cwd(), 'docker-compose.yml');
   await fse.writeFile(dockerComposeFile, dockerCompose, 'utf8');

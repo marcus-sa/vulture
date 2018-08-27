@@ -1,10 +1,16 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-export type Category = 'identity' | 'explore' | 'music' | 'social' | 'games' | 'room_builder' | 'pets';
+export type Category =
+  | 'identity'
+  | 'explore'
+  | 'music'
+  | 'social'
+  | 'games'
+  | 'room_builder'
+  | 'pets';
 
 @Entity()
 export class Achievements {
-
   @PrimaryGeneratedColumn()
   readonly id: number;
 
@@ -13,7 +19,7 @@ export class Achievements {
 
   @Column({
     default: 'identity',
-    enum: ['identity','explore','music','social','games','room_builder','pets'],
+    // enum: ['identity','explore','music','social','games','room_builder','pets'],
   })
   readonly category: Category;
 
@@ -31,5 +37,4 @@ export class Achievements {
 
   @Column()
   readonly enabled: boolean;
-
 }

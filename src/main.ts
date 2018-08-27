@@ -4,19 +4,19 @@ import { AppModule } from './app.module';
 
 (async () => {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api');
+  // app.setGlobalPrefix('api');
 
   const options = new DocumentBuilder()
     .setTitle('Authentication')
     .setDescription('The Authentication API description')
     .setVersion('1.0')
     .addTag('auth')
-    .setBasePath('/auth')
+    .setBasePath('/')
     .setTitle('Ranks')
     .setDescription('  The Ranks API description')
     .setVersion('1.0')
     .addTag('ranks')
-    .setBasePath('/ranks')
+    .setBasePath('/')
     .build();
 
   const document = SwaggerModule.createDocument(app, options);

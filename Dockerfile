@@ -4,10 +4,10 @@ WORKDIR /usr/app
 
 ADD ./package.json .
 ADD ./yarn.lock .
-RUN yarn install
+RUN yarn
 
 ADD ./src ./src
 ADD ./tsconfig.json .
-RUN yarn run build
 
-ENTRYPOINT yarn run serve
+# EXPOSE 3000
+ENTRYPOINT yarn serve:dev

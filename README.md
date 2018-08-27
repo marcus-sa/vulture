@@ -11,6 +11,7 @@ Ensure you have `yarn` installed, otherwise install it `npm install -g yarn`
 This API uses `docker`, so you must [`docker-compose`](https://docs.docker.com/compose/install/) installed
 
 Next step is to install all the required dependencies so that you can setup the API
+
 ```bash
 $ yarn
 ```
@@ -18,6 +19,7 @@ $ yarn
 ## Setup
 
 Simply run the following command and answer the prompts to setup everything needed
+
 ```bash
 $ yarn setup
 ```
@@ -25,11 +27,11 @@ $ yarn setup
 ## Running the app
 
 ```bash
-# docker
-$ docker-compose up
+# docker development
+$ yarn start:dev
 
-# local development
-$ yarn start
+# will output docker-machine ip
+$ yarn host
 ```
 
 ## Test
@@ -44,4 +46,3 @@ $ yarn test:e2e
 # test coverage
 $ yarn test:cov
 ```
-
