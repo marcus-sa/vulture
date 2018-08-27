@@ -53,6 +53,7 @@ const createDockerComposeTemplate = (options: Options) => ({
       ports: [`${options.apiPort}:${options.apiPort}`],
       restart: 'always',
       environment: {
+        EMULATOR: Emulators[options.emulator],
         PORT: options.apiPort,
         DB_HOST: dbService,
         DB_NAME: options.dbName,

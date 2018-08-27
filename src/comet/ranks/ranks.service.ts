@@ -6,7 +6,6 @@ import { Ranks } from './ranks.entity';
 
 @Injectable()
 export class RanksService {
-
   constructor(
     @InjectRepository(Ranks)
     private readonly ranksRepository: Repository<Ranks>,
@@ -15,5 +14,4 @@ export class RanksService {
   async findAll(): Promise<Ranks[]> {
     return await this.ranksRepository.find();
   }
-
 }
