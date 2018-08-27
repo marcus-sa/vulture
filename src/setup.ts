@@ -10,6 +10,9 @@ enum Emulators {
   Arcturus = 'arcturus',
 }
 
+const appService = 'app';
+const dbService = 'db';
+
 interface Options {
   apiPort: number;
   dbName: string;
@@ -29,48 +32,40 @@ const validateMinLength = (minLength: number, name: string) => (input = '') =>
   input.length >= minLength ||
   `${name} must be at least ${minLength} characters`;
 
-function createDockerCompose(options: Options) {
-  const dockerComposeTemplate = {
-    version: '3',
-    services: {
-      db: {
-        image: 'mariadb:latest',
-        restart: 'always',
-        environment: {},
-        volumes: ['db_data:/var/lib/mysql/data'],
+const createDockerComposeTemplate = (options: Options) => ({
+  version: '3',
+  services: {
+    [dbService]: {
+      image: 'mariadb:latest',
+      restart: 'always',
+      environment: {
+        MYSQL_ROOT_PASSWORD: options.dbRootPass,
+        MYSQL_DATABASE: options.dbName,
+        MYSQL_USER: options.dbUser,
+        MYSQL_PASSWORD: options.dbPass,
       },
-      app: {
-        depends_on: ['db'],
-        build: '.',
-        volumes: ['.:/usr/app'],
-        ports: [],
-        restart: 'always',
-        environment: {},
+      volumes: ['db_data:/var/lib/mysql/data'],
+    },
+    [appService]: {
+      depends_on: [dbService],
+      build: '.',
+      volumes: ['.:/usr/app'],
+      ports: [`${options.apiPort}:${options.apiPort}`],
+      restart: 'always',
+      environment: {
+        PORT: options.apiPort,
+        DB_HOST: dbService,
+        DB_NAME: options.dbName,
+        DB_PORT: options.dbPort,
+        DB_USER: options.dbUser,
+        DB_PASS: options.dbRootPass,
       },
     },
-    volumes: { db_data: {} },
-  } as any;
-
-  dockerComposeTemplate.services.db.environment = {
-    MYSQL_ROOT_PASSWORD: options.dbRootPass,
-    MYSQL_DATABASE: options.dbName,
-    MYSQL_USER: options.dbUser,
-    MYSQL_PASSWORD: options.dbPass,
-  };
-  dockerComposeTemplate.services.app.ports.push(
-    `${options.apiPort}:${options.apiPort}`,
-  );
-  dockerComposeTemplate.services.app.environment = {
-    PORT: options.apiPort,
-    DB_HOST: 'db',
-    DB_NAME: options.dbName,
-    DB_PORT: options.dbPort,
-    DB_USER: options.dbUser,
-    DB_PASS: options.dbRootPass,
-  };
-
-  return dockerComposeTemplate;
-}
+  },
+  volumes: {
+    db_data: {},
+  },
+});
 
 const questions: inquirer.Question[] = [
   {
@@ -125,7 +120,7 @@ const questions: inquirer.Question[] = [
 
 (async () => {
   const options = await prompt<Options>(questions);
-  const dockerComposeTemplate = createDockerCompose(options);
+  const dockerComposeTemplate = createDockerComposeTemplate(options);
   const dockerCompose = YAML.stringify(dockerComposeTemplate);
   const dockerComposeFile = path.join(process.cwd(), 'docker-compose.yml');
   await fse.writeFile(dockerComposeFile, dockerCompose, 'utf8');
