@@ -1,1 +1,1 @@
-export * from './comet.module';
+export { default } from './comet.module';

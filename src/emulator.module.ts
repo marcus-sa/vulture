@@ -1,29 +1,18 @@
-import { DynamicModule, Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { DynamicModule, forwardRef, Module } from '@nestjs/common';
+
+// import { CommonModule } from './common';
+
+import CometModule from './comet';
 
 @Module({})
 export class EmulatorModule {
-  public static async forRoot(): Promise<DynamicModule> {
-    const emulatorName = process.env.EMULATOR;
-    const emulatorModule = (await import(`./${emulatorName}`)).default;
+  public static forRoot(): DynamicModule {
+    // const dynamicModule = (await import(`./${process.env.EMULATOR || 'comet'}`)).default;
 
     return {
       module: EmulatorModule,
-      exports: [emulatorModule],
-      imports: [
-        emulatorModule,
-        TypeOrmModule.forRoot({
-          type: 'mariadb',
-          host: process.env.DB_HOST,
-          port: +process.env.DB_PORT,
-          username: process.env.DB_USER,
-          password: process.env.DB_PASS,
-          database: process.env.DB_NAME,
-          synchronize: true,
-          entities: [__dirname + `/${emulatorName}/**/*.entity{.ts,.js}`],
-          // migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
-        }),
-      ],
+      // exports: [CometModule],
+      imports: [CometModule],
     };
   }
 }

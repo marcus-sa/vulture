@@ -1,20 +1,16 @@
-import { Controller, Get } from '@nestjs/common';
-import { ApiOkResponse, ApiUseTags } from '@nestjs/swagger';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 
-import { RanksService } from './ranks.service';
-import { Ranks } from './ranks.entity';
+// import { CreateRankDto, BaseRanksController } from '../../common';
 
-@ApiUseTags('ranks')
 @Controller('ranks')
-export class RanksController {
-  constructor(private readonly ranksService: RanksService) {}
-
-  @ApiOkResponse({
-    description: 'Get all ranks available',
-    type: 'object',
-  })
+export class RanksController /*extends BaseRanksController */ {
   @Get('/')
-  async findAll(): Promise<Ranks[]> {
-    return await this.ranksService.findAll();
+  async findAll() {
+    return [];
   }
+
+  /*@Post()
+  async create(@Body() rank: CreateRankDto) {
+    return await this.ranksService.create(rank);
+  }*/
 }

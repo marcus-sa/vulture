@@ -4,26 +4,13 @@ import * as fse from 'fs-extra';
 import * as path from 'path';
 import YAML from 'yaml';
 
-enum Emulators {
-  Plus = 'plus',
-  Comet = 'comet',
-  Arcturus = 'arcturus',
-}
+import { Emulators, SetupOptions } from './common';
 
 const appService = 'app';
 const dbService = 'db';
 
-interface Options {
-  apiPort: number;
-  dbName: string;
-  dbPort: number;
-  dbPass: string;
-  dbUser: string;
-  dbRootPass: string;
-  emulator: Emulators;
-}
-
 const prompt = inquirer.createPromptModule();
+
 const validateInteger = (name: string) => input =>
   Number.isInteger(input) || `${name} must be an integer!`;
 const validateString = (name: string) => input =>
@@ -32,7 +19,7 @@ const validateMinLength = (minLength: number, name: string) => (input = '') =>
   input.length >= minLength ||
   `${name} must be at least ${minLength} characters`;
 
-const createDockerComposeTemplate = (options: Options) => ({
+const createDockerComposeTemplate = (options: SetupOptions) => ({
   version: '3',
   services: {
     [dbService]: {
@@ -120,7 +107,7 @@ const questions: inquirer.Question[] = [
 ];
 
 (async () => {
-  const options = await prompt<Options>(questions);
+  const options = await prompt<SetupOptions>(questions);
   const dockerComposeTemplate = createDockerComposeTemplate(options);
   const dockerCompose = YAML.stringify(dockerComposeTemplate);
   const dockerComposeFile = path.join(process.cwd(), 'docker-compose.yml');
