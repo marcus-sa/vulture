@@ -1,0 +1,14 @@
+{
+  "name": "@vulture/comet",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "dependencies": {
+    "@vulture/common": "*",
+    "@nestjs/common": "*",
+    "@nestjs/core": "*",
+    "typeorm": "*",
+    "reflect-metadata": "*",
+    "rxjs": "*"
+  }
+}

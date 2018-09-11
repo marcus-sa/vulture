@@ -1,0 +1,15 @@
+{
+  "name": "@vulture/common",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "dependencies": {
+    "@nestjs/common": "*",
+    "@nestjs/core": "*",
+    "class-transformer": "^0.1.9",
+    "class-validator": "^0.9.1",
+    "reflect-metadata": "*",
+    "typeorm": "*",
+    "rxjs": "*"
+  }
+}
