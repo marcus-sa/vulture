@@ -1,0 +1,14 @@
+{
+  "name": "@vulture/cli",
+  "version": "0.0.1",
+  "bin": {
+    "vulture": "./lib"
+  },
+  "dependencies": {
+    "@vulture/common": "*",
+    "yaml": "*",
+    "fs-extra": "*",
+    "password-generator": "*",
+    "inquirer": "*"
+  }
+}

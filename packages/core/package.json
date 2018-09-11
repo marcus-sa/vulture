@@ -1,0 +1,23 @@
+{
+  "name": "@vulture/core",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "dependencies": {
+    "@vulture/common": "*",
+    "@nestjs/common": "*",
+    "@nestjs/core": "*",
+    "@nestjs/typeorm": "*",
+    "@nestjs/jwt": "*",
+    "mysql": "*",
+    "passport": "*",
+    "passport-jwt": "*",
+    "reflect-metadata": "*",
+    "rxjs": "*"
+  },
+  "peerDependencies": {
+    "@vulture/comet": "*",
+    "@vulture/arcturus": "*",
+    "@vulture/plus": "*"
+  }
+}
