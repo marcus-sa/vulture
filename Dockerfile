@@ -1,4 +1,6 @@
-FROM node:latest
+# yarn install --production --ignore-scripts --prefer-offline
+
+FROM node:alpine
 
 WORKDIR /usr/app
 

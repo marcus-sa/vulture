@@ -1,4 +1,5 @@
 // @TODO: Find a way to create the docker-compose.yml in the user config directory
+// @TODO: Should be used to generate docker-compose.yml templates for the docker images
 
 import * as generatePassword from 'password-generator';
 import * as inquirer from 'inquirer';
