@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf packages/*/lib",
+    "commit": "git-cz",
     "bootstrap": "lerna bootstrap",
     "prepare": "yarn clean && lerna run prepare",
     "dc:dev": "docker-compose up --build",
@@ -29,6 +30,7 @@
     "@types/jest": "^21.1.8",
     "@types/node": "^10.9.2",
     "@types/supertest": "^2.0.4",
+    "git-cz": "^1.7.1",
     "husky": "^0.14.3",
     "jest": "^23.6.0",
     "lerna": "*",
