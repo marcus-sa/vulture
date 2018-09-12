@@ -1,13 +1,14 @@
-FROM node:latest
+# yarn install --production --ignore-scripts --prefer-offline
+
+FROM node:alpine
 
 WORKDIR /usr/app
 
 ADD ./package.json .
 ADD ./yarn.lock .
-RUN yarn install
+RUN yarn
 
 ADD ./src ./src
 ADD ./tsconfig.json .
-RUN yarn run build
 
-ENTRYPOINT yarn run serve
+ENTRYPOINT yarn serve:dev

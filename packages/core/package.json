@@ -1,0 +1,23 @@
+{
+  "name": "@vulture/core",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@vulture/common": "*",
+    "@vulture/comet": "*",
+    "@vulture/arcturus": "*",
+    "@vulture/plus": "*",
+    "@nestjs/common": "*",
+    "@nestjs/core": "*",
+    "@nestjs/typeorm": "*",
+    "@nestjs/jwt": "*",
+    "mysql": "*",
+    "passport": "*",
+    "passport-jwt": "*",
+    "reflect-metadata": "*",
+    "rxjs": "*"
+  }
+}

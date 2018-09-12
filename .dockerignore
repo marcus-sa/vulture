@@ -6,5 +6,3 @@ test
 LICENSE
 README.md
 .prettierrc
-nodemon.json
-docker-compose.template.yml

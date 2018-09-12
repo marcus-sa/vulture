@@ -1,0 +1,64 @@
+FORMAT: 1A
+
+# Vulture
+
+Vulture is an advanced Headless Habbo CMS supporting all major emulators.
+
+## Data Structures
+
+### RankInterface
++ name (string, required) - Name of the rank
++ badgeId (string, required) - ID of the badge
++ color (string, optional) - What color the the users chatbox should be
++ staffPage: false (boolean) - Whether or not this includes on staff page
+
+## Ranks collection [/ranks]
+
+### List All Ranks [GET]
+
+Get all available ranks.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "name": "User",
+            },
+            {
+                "id": 9,
+                "name": "Overlord",
+                "badgeId": "NHF",
+                "color": "black",
+                "staffPage": true
+            }
+        ]
+        
+### Create a New Rank [POST]
+
+You may create your own rank this method.
+
++ Attributes (RankInterface)
+
++ Response 201
+    
+    
+## Rank [/ranks/{id}]
++ Parameters
+    + id (number, required) - id of the rank
+    
+### Get Rank [GET]
+
++ Response 200 (application/json)
+
+        {
+            "id": 9,
+            "name": "Overlord",
+            "badgeId": "NHF",
+            "color": "black",
+            "staffPage": true
+        }
+    
+### Delete a Rank [DELETE]
+
++ Response 204

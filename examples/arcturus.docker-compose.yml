@@ -1,0 +1,18 @@
+version: '3'
+services:
+  app:
+    image: vulture:arcturus
+    build: .
+    volumes:
+      - .:/usr/app
+    ports:
+      - 3000:3000
+    restart: always
+    environment:
+      EMULATOR: arcturus
+      PORT: 3000
+      DB_HOST: db
+      DB_NAME: arcturus-db
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASS: XdnVdCBnMVpDC3He

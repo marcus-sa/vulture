@@ -1,0 +1,5 @@
+*tsconfig.*
+*Dockerfile
+*node_modules/
+*src/
+*__tests__/

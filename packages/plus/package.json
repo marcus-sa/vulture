@@ -1,0 +1,16 @@
+{
+  "name": "@vulture/plus",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@vulture/common": "*",
+    "@nestjs/common": "*",
+    "@nestjs/core": "*",
+    "typeorm": "*",
+    "reflect-metadata": "*",
+    "rxjs": "*"
+  }
+}

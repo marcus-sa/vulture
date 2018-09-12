@@ -1,0 +1,2 @@
+CLI should be used to generate relevant docker-compose.yml templates (look in examples folder)
+for the emulator chosen w/o standalone database

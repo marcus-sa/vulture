@@ -1,0 +1,17 @@
+{
+  "name": "@vulture-api/cli",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
+  "bin": {
+    "vulture": "./lib"
+  },
+  "dependencies": {
+    "@vulture/common": "*",
+    "yaml": "*",
+    "fs-extra": "*",
+    "password-generator": "*",
+    "inquirer": "*"
+  }
+}
