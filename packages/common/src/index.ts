@@ -4,7 +4,7 @@ export * from './utils';
 export * from './services';
 export * from './models';
 export * from './entities';
-export * from './interfaces';
+// export * from './interfaces';
 export * from './controllers';
 export * from './common.module';
 export * from './tokens';

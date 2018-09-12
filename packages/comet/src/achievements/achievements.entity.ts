@@ -12,29 +12,29 @@ export type Category =
 @Entity()
 export class Achievements {
   @PrimaryGeneratedColumn()
-  readonly id: number;
+  readonly id!: number;
 
   @Column({ name: 'group_name' })
-  readonly groupName: string;
+  readonly groupName!: string;
 
   @Column({
     default: 'identity',
     // enum: ['identity','explore','music','social','games','room_builder','pets'],
   })
-  readonly category: Category;
+  readonly category!: Category;
 
   @Column()
-  readonly level: number;
+  readonly level!: number;
 
   @Column({ name: 'reward_activity_points' })
-  readonly rewardActivityPoints: number;
+  readonly rewardActivityPoints!: number;
 
   @Column({ name: 'reward_achievement_points' })
-  readonly rewardAchievementPoints: number;
+  readonly rewardAchievementPoints!: number;
 
   @Column({ name: 'progress_requirement' })
-  readonly progressRequirement: number;
+  readonly progressRequirement!: number;
 
   @Column()
-  readonly enabled: boolean;
+  readonly enabled!: boolean;
 }

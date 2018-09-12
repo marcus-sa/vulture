@@ -5,6 +5,5 @@
     "paths": {
       "@vulture/*": ["./*/src"]
     }
-  },
-  "exclude": ["__tests__", "node_modules", "lib"]
+  }
 }

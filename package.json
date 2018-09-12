@@ -4,23 +4,14 @@
   "author": "Marcus S. Abildskov <marcussa2000@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf packages/*/lib",
-    "commit": "git-cz",
     "bootstrap": "lerna bootstrap",
+    "build": "yarn clean && lerna run build",
     "prepare": "yarn clean && lerna run prepare",
-    "dc:dev": "docker-compose up --build",
-    "dc:build": "docker-compose build --no-cache",
-    "dc:rebuild": "docker-compose down && yarn dc:build",
-    "setup": "ts-node src/setup.ts && yarn dc:build && docker-compose up --no-build",
-    "host": "docker-machine ip",
+    "commit": "git-cz",
+    "clean": "rimraf packages/*/lib",
     "precommit": "yarn test && pretty-quick --staged",
-    "serve:dev": "nodemon -L --watch src --exec ts-node src/main.ts",
-    "build": "rm -rf dist && tsc",
-    "serve": "node .",
-    "test": "jest",
-    "test:cov": "jest --coverage",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "pretty-quick": "pretty-quick"
+    "pretty-quick": "pretty-quick",
+    "test": "jest"
   },
   "devDependencies": {
     "@nestjs/testing": "^5.3.1",
@@ -42,7 +33,7 @@
     "ts-loader": "^4.1.0",
     "ts-node": "^4.1.0",
     "tsconfig-paths": "^3.1.1",
-    "typescript": "2.8.1"
+    "typescript": "^3.0.3"
   },
   "workspaces": [
     "packages/*"

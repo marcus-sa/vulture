@@ -4,11 +4,12 @@
     "moduleResolution": "node",
     "strict": true,
     "removeComments": true,
+    "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "declaration": true,
     "target": "es6"
-  }
+  },
+  "exclude": ["./packages/*/__tests__", "./node_modules", "./packages/*/lib"]
 }

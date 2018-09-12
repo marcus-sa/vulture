@@ -2,7 +2,9 @@
   "name": "@vulture/common",
   "version": "0.0.1",
   "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
   "dependencies": {
     "@nestjs/common": "*",
     "@nestjs/core": "*",

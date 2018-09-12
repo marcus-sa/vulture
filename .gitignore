@@ -66,3 +66,6 @@ docker-compose.yml
 
 # .idea
 .idea
+
+# lib
+*lib

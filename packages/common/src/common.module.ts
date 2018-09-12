@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { RanksService } from './services';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { RankToken } from './tokens';
 
 @Module({
