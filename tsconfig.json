@@ -6,5 +6,5 @@
       "@vulture/*": ["./*/src"]
     }
   },
-  "exclude": ["node_modules", "lib"]
+  "exclude": ["__tests__", "node_modules", "lib"]
 }

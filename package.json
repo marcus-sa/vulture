@@ -12,7 +12,7 @@
     "dc:rebuild": "docker-compose down && yarn dc:build",
     "setup": "ts-node src/setup.ts && yarn dc:build && docker-compose up --no-build",
     "host": "docker-machine ip",
-    "precommit": "pretty-quick --staged",
+    "precommit": "yarn test && pretty-quick --staged",
     "serve:dev": "nodemon -L --watch src --exec ts-node src/main.ts",
     "build": "rm -rf dist && tsc",
     "serve": "node .",
@@ -30,15 +30,17 @@
     "@types/node": "^10.9.2",
     "@types/supertest": "^2.0.4",
     "husky": "^0.14.3",
+    "jest": "^23.6.0",
+    "lerna": "*",
     "nodemon": "^1.14.1",
     "prettier": "^1.11.1",
     "pretty-quick": "^1.6.0",
     "supertest": "^3.0.0",
+    "ts-jest": "^23.1.4",
     "ts-loader": "^4.1.0",
     "ts-node": "^4.1.0",
     "tsconfig-paths": "^3.1.1",
-    "typescript": "2.8.1",
-    "lerna": "*"
+    "typescript": "2.8.1"
   },
   "workspaces": [
     "packages/*"
@@ -65,7 +67,7 @@
       }
     },
     "testMatch": [
-      "<rootDir>/packages/*/__tests__/**/*.(spec|test).+(ts|tsx|js)"
+      "<rootDir>/packages/*/__tests__/**/*.(spec|test).+(ts|tsx)"
     ]
   }
 }

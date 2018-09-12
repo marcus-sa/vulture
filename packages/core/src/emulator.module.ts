@@ -1,11 +1,11 @@
 import { DynamicModule, Module } from '@nestjs/common';
 
-import { Emulators } from '@vulture/common';
+import { Emulators, Emulator } from '@vulture/common';
 
 @Module({})
 export class EmulatorModule {
   private static async getEmulatorModule() {
-    switch (process.env.EMULATOR) {
+    switch (<Emulator>process.env.EMULATOR) {
       case Emulators.Arcturus:
         return (await import('@vulture/arcturus')).ArcturusModule;
 
@@ -27,8 +27,8 @@ export class EmulatorModule {
 
     return {
       module: EmulatorModule,
-      exports: [dynamicModule!],
       imports: [dynamicModule!],
+      exports: [dynamicModule!],
     };
   }
 }

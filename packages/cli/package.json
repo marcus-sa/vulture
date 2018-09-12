@@ -1,5 +1,5 @@
 {
-  "name": "@vulture/cli",
+  "name": "@vulture-api/cli",
   "version": "0.0.1",
   "bin": {
     "vulture": "./lib"
