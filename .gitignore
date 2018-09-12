@@ -63,3 +63,6 @@ typings/
 # Docker files
 docker-compose.template.yml
 docker-compose.yml
+
+# .idea
+.idea

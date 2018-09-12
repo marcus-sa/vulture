@@ -1,12 +1,11 @@
 import { DynamicModule } from '@nestjs/common';
 import { EmulatorModule } from '@vulture/core';
+import { Utils } from '@vulture/common';
 
 import { ArcturusModule } from '@vulture/arcturus';
 import { CometModule } from '@vulture/comet';
 import { PlusModule } from '@vulture/plus';
 import { Emulator } from '@vulture/common';
-
-import { setEnvironment } from './test-utils';
 
 describe('EmulatorModule', () => {
   /*describe('getEmulatorModule', () => {
@@ -18,8 +17,8 @@ describe('EmulatorModule', () => {
   });*/
 
   describe('forRoot', () => {
-    it('should return dynamic module containing comet', async () => {
-      setEnvironment({ EMULATOR: 'comet' });
+    it('should return dynamic module with comet', async () => {
+      Utils.setEnvironment({ EMULATOR: 'comet' });
       const emulatorModule = await EmulatorModule.forRoot();
 
       expect(emulatorModule).toMatchObject({

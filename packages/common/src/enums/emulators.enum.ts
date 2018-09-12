@@ -5,7 +5,7 @@ export type KEmulator = 'Plus' | 'Comet' | 'Arcturus';
 export type IEmulators = { [name in KEmulator]: Emulator };
 
 export const Emulators: IEmulators = {
-  Plus: 'plus',
-  Comet: 'comet',
   Arcturus: 'arcturus',
+  Comet: 'comet',
+  Plus: 'plus',
 };

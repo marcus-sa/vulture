@@ -2,7 +2,7 @@
 // @TODO: Should be used to generate docker-compose.yml templates for the docker images or without using docker
 
 import * as generatePassword from 'password-generator';
-import { Emulators } from '@vulture/common';
+import { DbTypes, Emulators } from '@vulture/common';
 import * as inquirer from 'inquirer';
 
 import { validateInteger, validateMinLength, validateString } from './util';
@@ -11,6 +11,16 @@ import { SetupOptions } from './setup-options.interface';
 
 (async () => {
   const prompt = inquirer.createPromptModule();
+
+  const messages = {
+    database: {
+      name: 'Database name',
+      port: 'Database port',
+      root: 'Database root password',
+      username: 'Database username',
+      password: 'Database user password',
+    },
+  };
 
   const questions: inquirer.Question[] = [
     {
@@ -29,43 +39,49 @@ import { SetupOptions } from './setup-options.interface';
     {
       type: 'input',
       name: 'dbName',
-      message: 'MySQL database name',
       default: 'vulture',
-      validate: validateString('Database name'),
+      message: messages.database.name,
+      validate: validateString(messages.database.name),
     },
     {
       type: 'input',
       name: 'dbUser',
-      message: 'MySQL username',
       default: 'root',
-      validate: validateString('Username'),
+      message: messages.database.username,
+      validate: validateString(messages.database.username),
     },
     {
       type: 'input',
       name: 'dbPort',
-      message: 'MySQL port',
+      message: messages.database.port,
       default: 3306,
-      validate: validateInteger('MySQL port'),
+      validate: validateInteger(messages.database.port),
     },
     {
       type: 'password',
       name: 'dbPass',
-      message: 'MySQL user password',
+      message: messages.database.password,
       default: generatePassword(12),
-      validate: validateMinLength(6, 'User password'),
+      validate: validateMinLength(6, messages.database.password),
     },
     {
       type: 'password',
       name: 'dbRootPass',
-      message: 'MySQL root password',
+      message: messages.database.root,
       default: generatePassword(16),
-      validate: validateMinLength(12, 'Root password'),
+      validate: validateMinLength(12, messages.database.root),
     },
     {
       type: 'list',
       name: 'emulator',
       message: 'Choose emulator',
       choices: Object.keys(Emulators),
+    },
+    {
+      type: 'list',
+      name: 'dbType',
+      message: 'Choose database type',
+      choices: Object.keys(DbTypes),
     },
   ];
 

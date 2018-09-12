@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { EmulatorModule } from './emulator.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mariadb',
+      type: <any>process.env.DB_TYPE,
       host: process.env.DB_HOST,
       port: +process.env.DB_PORT!,
       username: process.env.DB_USER,

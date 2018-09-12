@@ -1,8 +1,9 @@
-import { KEmulator } from '@vulture/common';
+import { KDbType, KEmulator } from '@vulture/common';
 
 export interface SetupOptions {
   useDocker: boolean;
   apiPort: number;
+  dbType: KDbType;
   dbName: string;
   dbPort: number;
   dbPass: string;

@@ -1,4 +1,4 @@
-import { Emulators } from '@vulture/common';
+import { DbTypes, Emulators } from '@vulture/common';
 import * as fse from 'fs-extra';
 import * as path from 'path';
 import YAML from 'yaml';
@@ -33,13 +33,14 @@ const createDockerComposeTemplate = (options: SetupOptions) => ({
       ports: [`${options.apiPort}:${options.apiPort}`],
       restart: 'always',
       environment: {
-        EMULATOR: Emulators[options.emulator],
-        PORT: options.apiPort,
         DB_HOST: 'db',
+        DB_TYPE: DbTypes[options.dbType],
         DB_NAME: options.dbName,
         DB_PORT: options.dbPort,
         DB_USER: options.dbUser,
         DB_PASS: options.dbRootPass,
+        PORT: options.apiPort,
+        EMULATOR: Emulators[options.emulator],
       },
     },
   },
